@@ -11,6 +11,8 @@
 #
 # Argument: filename common to all files to be used.
 
+set -eo pipefail
+
 main() {
   declare filename="$1";
 
