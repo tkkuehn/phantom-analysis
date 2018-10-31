@@ -7,7 +7,7 @@
 #   .bvec file
 #   .bval file
 #   MASK.nii.gz file with mask containing all phantoms in the scan
-#   TOP_MASK.nii.gz file with mask containing only linear phantom
+#   TOP_MASK.mih file with mask containing only linear phantom
 #
 # Argument: filename common to all files to be used.
 
