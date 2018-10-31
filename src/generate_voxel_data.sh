@@ -6,13 +6,17 @@
 #   .nii.gz file with scan data
 #   .bvec file
 #   .bval file
-#   .txt file with estimated response function
 #   MASK.nii.gz file with mask containing all phantoms in the scan
+#   TOP_MASK.nii.gz file with mask containing only linear phantom
 #
 # Argument: filename common to all files to be used.
 
 main() {
   declare filename="$1";
+
+  dwi2response tournier "${filename}.nii.gz" "${filename}.txt" \
+    -fslgrad "${filename}.bvec" "${filename}.bval" \
+    -mask "${filename}_TOP_MASK.nii.gz"
 
   dwi2fod csd "${filename}.nii.gz" "${filename}.txt" "${filename}FOD.nii.gz" \
     -fslgrad "${filename}.bvec" "${filename}.bval" \
