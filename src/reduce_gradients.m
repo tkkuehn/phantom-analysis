@@ -1,17 +1,21 @@
-n = 100;
+% change to the number of samples you want
+n = 50;
 
-data = niftiread('dti_201_scan1_3dPrintPhantomBottom6.nii.gz');
-header = niftiinfo('dti_201_scan1_3dPrintPhantomBottom6.nii.gz');
+% change to the base name of the scan you want
+base_file = 'dti_201_scan1_3dPrintPhantomBottom6';
 
-bval = importdata('dti_201_scan1_3dPrintPhantomBottom6.bval');
-bvec = importdata('dti_201_scan1_3dPrintPhantomBottom6.bvec');
+data = niftiread([base_file '.nii.gz']);
+header = niftiinfo([base_file '.nii.gz']);
 
-data_100 = data(1:96, 1:60, 1:6, 1:n);
-bval_100 = bval(1:n);
-bvec_100 = bvec(1:3, 1:n);
-header_100 = header;
-header_100.ImageSize = [96,60,6,n];
+bval = importdata([base_file '.bval']);
+bvec = importdata([base_file '.bvec']);
 
-niftiwrite(data_100, ['dti_201_scan1_3dPrintPhantomBottom6_' num2str(n)], header_100, 'Compressed', true);
-dlmwrite(['dti_201_scan1_3dPrintPhantomBottom6_' num2str(n) '.bvec'], bvec_100, 'delimiter', '\t', 'precision', 6);
-dlmwrite(['dti_201_scan1_3dPrintPhantomBottom6_' num2str(n) '.bval'], bval_100, 'delimiter', '\t', 'precision', 6);
+data_n = data(1:96, 1:60, 1:6, 1:n);
+bval_n = bval(1:n);
+bvec_n = bvec(1:3, 1:n);
+header_n = header;
+header_n.ImageSize = [96,60,6,n];
+
+niftiwrite(data_n, [base_file '_' num2str(n)], header_n, 'Compressed', true);
+dlmwrite([base_file '_' num2str(n) '.bvec'], bvec_n, 'delimiter', '\t', 'precision', 6);
+dlmwrite([base_file '_' num2str(n) '.bval'], bval_n, 'delimiter', '\t', 'precision', 6);
