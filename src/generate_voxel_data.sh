@@ -18,7 +18,7 @@ main() {
 
   dwi2response tournier "${filename}.nii.gz" "${filename}.txt" \
     -fslgrad "${filename}.bvec" "${filename}.bval" \
-    -mask "${filename}_TOP_MASK.nii.gz"
+    -mask "${filename}_TOP_MASK.mih"
 
   dwi2fod csd "${filename}.nii.gz" "${filename}.txt" "${filename}FOD.nii.gz" \
     -fslgrad "${filename}.bvec" "${filename}.bval" \
