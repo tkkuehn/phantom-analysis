@@ -4,6 +4,8 @@
 # 
 # Required files:
 #   .nii.gz file with scan data
+#   .bvec file
+#   .bval file
 #   .txt file with estimated response function
 #   MASK.nii.gz file with mask containing all phantoms in the scan
 #
@@ -12,13 +14,9 @@
 main() {
   declare filename="$1";
 
-  echo "${filename}";
-
   dwi2fod csd "${filename}.nii.gz" "${filename}.txt" "${filename}FOD.nii.gz" \
     -fslgrad "${filename}.bvec" "${filename}.bval" \
     -mask "${filename}MASK.nii.gz"
-
-  mkdir "${filename}_fixel";
 
   fod2fixel "${filename}FOD.nii.gz" "${filename}_fixel" \
     -afd "${filename}_afd.nii.gz" \
