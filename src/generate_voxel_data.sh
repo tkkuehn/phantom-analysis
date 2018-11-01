@@ -7,7 +7,7 @@
 #   .bvec file
 #   .bval file
 #   MASK.nii.gz file with mask containing all phantoms in the scan
-#   TOP_MASK.mih file with mask containing only linear phantom
+#   .txt file from linear phantom (may need to come from a different scan)
 #
 # Argument: filename common to all files to be used.
 
@@ -15,10 +15,6 @@ set -eo pipefail
 
 main() {
   declare filename="$1";
-
-  dwi2response tournier "${filename}.nii.gz" "${filename}.txt" \
-    -fslgrad "${filename}.bvec" "${filename}.bval" \
-    -mask "${filename}_TOP_MASK.mih"
 
   dwi2fod csd "${filename}.nii.gz" "${filename}.txt" "${filename}FOD.nii.gz" \
     -fslgrad "${filename}.bvec" "${filename}.bval" \
