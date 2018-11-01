@@ -3,10 +3,10 @@ function [] = generate_summary_csv(base_file)
 %   Requires 3 4D scalar images and 1 4D vector image.
 %   Saves table of statistics as a .csv file.
 
-disp_voxel_data = niftiread([base_file '_disp_voxel_data.nii.gz']);
-disp_voxel_dir = niftiread([base_file '_disp_voxel_dir.nii.gz']);
-afd_voxel_data = niftiread([base_file '_afd_voxel_data.nii.gz']);
-peak_voxel_data = niftiread([base_file '_peak_voxel_data.nii.gz']);
+disp_voxel_data = niftiread([base_file '_fixel/' base_file '_disp_voxel_data.nii.gz']);
+disp_voxel_dir = niftiread([base_file '_fixel/' base_file '_disp_voxel_dir.nii.gz']);
+afd_voxel_data = niftiread([base_file '_fixel/' base_file '_afd_voxel_data.nii.gz']);
+peak_voxel_data = niftiread([base_file '_fixel/' base_file '_peak_voxel_data.nii.gz']);
 
 % Discard all but the two most significant fixels
 disp_voxel_data = disp_voxel_data(:, :, :, 1:2);

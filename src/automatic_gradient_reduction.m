@@ -8,8 +8,8 @@ numbers = [200 100 50 25];
 base_files = {'dti_201_scan1_3dPrintPhantomBottom6' ...
     'dti_201_scan2_3dPrintPhantomTop6'};
 
-for i = 1:size(base_files)
-    for j = 1:size(numbers)
+for i = 1:size(base_files, 2)
+    for j = 1:size(numbers, 2)
         reduce_gradients(base_files{i}, numbers(j));
     end
 end
