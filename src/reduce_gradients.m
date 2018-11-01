@@ -1,8 +1,6 @@
-% change to the number of samples you want
-n = 50;
-
-% change to the base name of the scan you want
-base_file = 'dti_201_scan1_3dPrintPhantomBottom6';
+function [] = reduce_gradients(base_file, n)
+%reduce_gradients Remove n gradients from 
+%   Detailed explanation goes here
 
 data = niftiread([base_file '.nii.gz']);
 header = niftiinfo([base_file '.nii.gz']);
@@ -19,3 +17,6 @@ header_n.ImageSize = [96,60,6,n];
 niftiwrite(data_n, [base_file '_' num2str(n)], header_n, 'Compressed', true);
 dlmwrite([base_file '_' num2str(n) '.bvec'], bvec_n, 'delimiter', '\t', 'precision', 6);
 dlmwrite([base_file '_' num2str(n) '.bval'], bval_n, 'delimiter', '\t', 'precision', 6);
+
+end
+
