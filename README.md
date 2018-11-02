@@ -1,6 +1,40 @@
 # dMRI Phantom Analysis
 
-This is meant to contain the code for analysis of a 3D printed dMRI phantom.
+This is meant to contain the code for analysis of a set of 12 3D printed dMRI phantoms.
+
+All this code is founded on a few assumptions.
+
+1. Each scan is contained in a subfolder of `resources` named after the date of the scan.
+
+2. Each scan directory has files corresponding to two scans, one of the top 6 phantoms, and one of the bottom 6 phantoms.
+
+3. There is at least a NIfTI of the scan data, a bvec file, a bval file, and a NIfTI with a mask containing each phantom for each scan.
+
+4. In addition, there is a `.mif` file with a mask of just the very top (linear) phantom.
+
+## Procedure
+
+To run the same analysis used for the abstract, follow these steps:
+
+1. Run `automatic_gradient_reduction.m` in MATLAB, adjusting the `numbers` and `base_files` variables as necessary.
+
+2. Run `generate_response.m`. Adjusting the file names is a long job right now, but doable if necessary.
+
+3. Run 
+
+        echo dti_201_scan1_3dPrintPhantomBottom6_200 \
+        dti_201_scan1_3dPrintPhantomBottom6_100 \
+        dti_201_scan1_3dPrintPhantomBottom6_50 \
+        dti_201_scan1_3dPrintPhantomBottom6_25 \
+        dti_201_scan2_3dPrintPhantomTop6_200 \
+        dti_201_scan2_3dPrintPhantomTop6_100 \
+        dti_201_scan2_3dPrintPhantomTop6_50 \
+        dti_201_scan2_3dPrintPhantomTop6_25 \
+        | xargs -n 1 -P 4 ../../src/generate_voxel_data.sh`
+
+    You can adjust the base filenames if necessary.
+
+4. Run `summarize_fixels.m` in MATLAB, adjusting the `base_files` and `gradients` variables as necessary.
 
 ## `reduce_gradients.m`
 
