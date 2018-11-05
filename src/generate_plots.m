@@ -19,6 +19,8 @@ afd_2_means = zeros(12, 3);
 afd_1_stds = zeros(12, 3);
 afd_2_stds = zeros(12, 3);
 
+
+
 for i = 1:size(base_files, 2)
    for j = 1:size(gradients, 2)
        M = csvread([base_files{i} '_' gradients{j} '.csv'], 1, 0);
@@ -194,8 +196,11 @@ ax = gca;
 ax.XLim = [210 240];
 %% Quantities vs. Number of Acquisitions Plot
 
+figure('Units', 'inches', 'Position', [0, 0, 8.5, 12]);
+
 known_cross = [60 90];
-figure('Units', 'inches', 'Position', [0, 0, 4, 2.5]);
+subplot(2, 2, 1)
+% figure('Units', 'inches', 'Position', [0, 0, 6, 3]);
 hold on
 plot(known_cross, known_cross, 'k-');
 errorbar(known_cross, cross_means([6 9], 1), cross_stds([6 9], 1), 'k--*');
@@ -207,13 +212,14 @@ ax.YLim = [50 100];
 title('Estimated Crossing Angle vs. Known Crossing Angle');
 ylabel('Estimated Crossing Angle (°)');
 xlabel('Known Crossing Angle (°)');
+legend({'Unity', '200 Acquisitions', '50 Acquisitions', '20 Acquisitions'}, 'Location', 'southeast');
 hold off
 
 crossing_angles = [0 30 60 90];
 
-figure('Units', 'inches', 'Position', [0, 0, 4, 3]);
+subplot(2, 2, 2)
+% figure('Units', 'inches', 'Position', [0, 0, 6, 3]);
 hold on
-% plot(known_cross, known_cross, 'k-');
 errorbar(crossing_angles, peak_1_means([3 6 9 12], 1), peak_1_stds([3 6 9 12], 1), 'k--*');
 errorbar(crossing_angles, peak_1_means([3 6 9 12], 2), peak_1_stds([3 6 9 12], 2), 'k:o');
 errorbar(crossing_angles, peak_1_means([3 6 9 12], 3), peak_1_stds([3 6 9 12], 3), 'k-^');
@@ -229,3 +235,43 @@ xlabel('Crossing Angle (°)');
 legend({'Dominant, 200', 'Dominant, 50', 'Dominant, 20', ...
     'Secondary, 200', 'Secondary, 50', 'Secondary, 20'});
 hold off
+
+subplot(2, 2, 3)
+% figure('Units', 'inches', 'Position', [0, 0, 6, 3]);
+hold on
+errorbar(crossing_angles, afd_1_means([3 6 9 12], 1), afd_1_stds([3 6 9 12], 1), 'k--*');
+errorbar(crossing_angles, afd_1_means([3 6 9 12], 2), afd_1_stds([3 6 9 12], 2), 'k:o');
+errorbar(crossing_angles, afd_1_means([3 6 9 12], 3), afd_1_stds([3 6 9 12], 3), 'k-^');
+
+errorbar(crossing_angles, afd_2_means([3 6 9 12], 1), afd_2_stds([3 6 9 12], 1), 'r--*');
+errorbar(crossing_angles, afd_2_means([3 6 9 12], 2), afd_2_stds([3 6 9 12], 2), 'r:o');
+errorbar(crossing_angles, afd_2_means([3 6 9 12], 3), afd_2_stds([3 6 9 12], 3), 'r-^');
+ax = gca;
+ax.XLim = [-5 95];
+title('AFD vs. Crossing Angle');
+ylabel('AFD');
+xlabel('Crossing Angle (°)');
+legend({'Dominant, 200', 'Dominant, 50', 'Dominant, 20', ...
+    'Secondary, 200', 'Secondary, 50', 'Secondary, 20'});
+hold off
+
+subplot(2, 2, 4)
+% figure('Units', 'inches', 'Position', [0, 0, 6, 3]);
+hold on
+errorbar(crossing_angles, disp_1_means([3 6 9 12], 1), disp_1_stds([3 6 9 12], 1), 'k--*');
+errorbar(crossing_angles, disp_1_means([3 6 9 12], 2), disp_1_stds([3 6 9 12], 2), 'k:o');
+errorbar(crossing_angles, disp_1_means([3 6 9 12], 3), disp_1_stds([3 6 9 12], 3), 'k-^');
+
+errorbar(crossing_angles, disp_2_means([3 6 9 12], 1), disp_2_stds([3 6 9 12], 1), 'r--*');
+errorbar(crossing_angles, disp_2_means([3 6 9 12], 2), disp_2_stds([3 6 9 12], 2), 'r:o');
+errorbar(crossing_angles, disp_2_means([3 6 9 12], 3), disp_2_stds([3 6 9 12], 3), 'r-^');
+ax = gca;
+ax.XLim = [-5 95];
+title('Dispersion vs. Crossing Angle');
+ylabel('Dispersion');
+xlabel('Crossing Angle (°)');
+legend({'Dominant, 200', 'Dominant, 50', 'Dominant, 20', ...
+    'Secondary, 200', 'Secondary, 50', 'Secondary, 20'}, ...
+    'Location', 'southeast');
+hold off
+
