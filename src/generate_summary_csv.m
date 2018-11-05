@@ -36,15 +36,43 @@ for layer = 1:layers
     fixel_dir_2 = cellfun(@(x) squeeze(x), ...
         squeeze(disp_voxel_dir(:, :, layer, 2)), 'UniformOutput', false);
     
+%     angle_1 = cellfun(@(x) acos(dot(x, [1; 0; 0]) / (norm(x))), ...
+%         fixel_dir_1);
+%     angle_2 = cellfun(@(x) acos(dot(x, [1; 0; 0]) / (norm(x))), ...
+%         fixel_dir_2);
+%     
+%     angle_1_new = arrayfun(@max, ...
+%         angle_1, angle_2);
+%     angle_2_new = arrayfun(@min, ...
+%         angle_1, angle_2);
+%     
+%     figure
+%     boxplot(rad2deg(angle_1_new(not(isnan(angle_1_new)))));
+%     title(['angle_1' base_file ' ' num2str(layer)], 'Interpreter', 'none');
+%     
+%     figure
+%     boxplot(rad2deg(angle_2_new(not(isnan(angle_2_new)))));
+%     title(['angle_2 ' base_file ' ' num2str(layer)], 'Interpreter', 'none');
+%     
     % Pixels with no phantom will be acos(0/0) = NaN here
     cross = cellfun(@(x, y) acos(dot(x, y) / (norm(x) * norm(y))), ...
         fixel_dir_1, fixel_dir_2);
     % Get supplementary angle if necessary
     cross_over_90 = find(cross > (pi / 2));
     cross(cross_over_90) = pi - cross(cross_over_90);
+%     
+%     if layer == 1
+%         disp(rad2deg(angle_1_new(51, 37)));
+%         disp(rad2deg(angle_2_new(51, 37)));
+%         disp(rad2deg(cross(51, 37)));
+%     end
     
     mean_cross(layer) = mean(cross(not(isnan(cross))));
     std_cross(layer) = std(cross(not(isnan(cross))));
+%     
+%     figure
+%     boxplot(rad2deg(cross(not(isnan(cross)))));
+%     title([base_file ' ' num2str(layer)], 'Interpreter', 'none');
     
     layer_disp = squeeze(disp_voxel_data(:, :, layer, :));
     mean_disp(layer) = mean(layer_disp(layer_disp > 0));
