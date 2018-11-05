@@ -2,7 +2,7 @@
 % Automatically produces a set of data with a reduced number of gradients
 
 % change to the number of samples you want
-numbers = [200 100 50 25];
+numbers = [200 50 20];
 
 % change to the base name of the scan you want
 base_files = {'dti_201_scan1_3dPrintPhantomBottom6' ...

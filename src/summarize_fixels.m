@@ -5,11 +5,11 @@ base_files = {'dti_201_scan1_3dPrintPhantomBottom6' ...
     'dti_201_scan2_3dPrintPhantomTop6'};
 
 % Has to be a string
-gradients = {'200' '100' '50'};
+gradients = {'200' '50' '20'};
 
 for i = 1:size(base_files, 2)
     for j = 1:size(gradients, 2)
-        generate_summary_csv([base_files{i} '_' gradients{j}]);
+        generate_summary_csv([base_files{i} '_' gradients{j}], i > 1);
     end
 end
 
