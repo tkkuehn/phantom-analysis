@@ -23,10 +23,10 @@ To run the same analysis used for the abstract, follow these steps:
 3. Run 
 
         echo dti_201_scan1_3dPrintPhantomBottom6_200 \
-        dti_201_scan1_3dPrintPhantomBottom6_100 \
+        dti_201_scan1_3dPrintPhantomBottom6_50 \
         dti_201_scan1_3dPrintPhantomBottom6_20 \
         dti_201_scan2_3dPrintPhantomTop6_200 \
-        dti_201_scan2_3dPrintPhantomTop6_100 \
+        dti_201_scan2_3dPrintPhantomTop6_50 \
         dti_201_scan2_3dPrintPhantomTop6_20 \
         | xargs -n 1 -P 4 ../../src/generate_voxel_data.sh`
 
